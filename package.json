@@ -3,15 +3,22 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "clipboard-copy": "^2.0.1",
+    "csv": "^5.0.0",
     "react": "^16.6.3",
+    "react-copy-to-clipboard": "^5.0.1",
     "react-dom": "^16.6.3",
+    "react-dropzone": "^7.0.1",
+    "react-grid-system": "^4.3.1",
+    "react-notifications": "^1.4.3",
     "react-scripts": "2.1.1"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "buildPush": "yarn build && cd build && s3cmd -c ~/Desktop/Developer/nl.rogierslag/s3cmd-config/personal.cfg put -r . s3://ing.rogierslag.nl --exclude='.DS_Store' --add-header=\"Cache-Control:max-age=604800,immutable\" -P"
   },
   "eslintConfig": {
     "extends": "react-app"
