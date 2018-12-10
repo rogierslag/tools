@@ -9,9 +9,14 @@
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
-	font-size: calc(10px + 2vmin);
+	font-size: 30px;
 	color: white;
 	margin-bottom: 24px;
+}
+
+h1 {
+	font-weight: bold;
+	font-size: 30px;
 }
 
 .App-link {
@@ -49,4 +54,8 @@ textarea {
 .small {
 	font-style: italic;
 	font-size: 12px;
+}
+
+.dropzone {
+	margin: 4px 8px;
 }

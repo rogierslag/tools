@@ -154,11 +154,11 @@ class App extends Component {
 				<Row>
 					<Col xs={12}>
 						<header className="App-header">
-							<p>
-								Upload your csv export from ING below.
-							</p>
+							<h1>
+								Upload your CSV export from ING below.
+							</h1>
 
-							<p className="small">
+							<p className="small" style={{marginBottom: '24px'}}>
 								You can then directly paste the resulting values in a&nbsp;
 								<a href="https://docs.google.com/spreadsheets/d/1ftoN7nWBRN5N35OzFer_wr6DUH8DpY8kpUuUAOBG2N8/edit?usp=sharing"
 								   target="_blank"
@@ -171,7 +171,7 @@ class App extends Component {
 							<Row>
 								<Col xs={12}>
 									<Dropzone onDrop={this.fileUploaded}>
-										<p>Drop your ING CSV export file here, or click to browse to it.</p>
+										<p className="dropzone">Drop your ING CSV export file here, or click to browse to it.</p>
 									</Dropzone>
 								</Col>
 							</Row>
