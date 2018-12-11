@@ -1,7 +1,59 @@
 {
-  "short_name": "ING converter",
+  "short_name": "ING convert",
   "name": "ING to Google spreadsheets",
   "start_url": ".",
+  "icons": [
+    {
+      "src": "/images/house-16-237998.png",
+      "type": "image/png",
+      "sizes": "16x16"
+    },
+    {
+      "src": "/images/house-24-237998.png",
+      "type": "image/png",
+      "sizes": "24x24"
+    },
+    {
+      "src": "/images/house-32-237998.png",
+      "type": "image/png",
+      "sizes": "32x32"
+    },
+    {
+      "src": "/images/house-48-237998.png",
+      "type": "image/png",
+      "sizes": "48x48"
+    },
+    {
+      "src": "/images/house-64-237998.png",
+      "type": "image/png",
+      "sizes": "64x64"
+    },
+    {
+      "src": "/images/house-114-237998.png",
+      "type": "image/png",
+      "sizes": "114x114"
+    },
+    {
+      "src": "/images/house-120-237998.png",
+      "type": "image/png",
+      "sizes": "120x120"
+    },
+    {
+      "src": "/images/house-144-237998.png",
+      "type": "image/png",
+      "sizes": "144x144"
+    },
+    {
+      "src": "/images/house-152-237998.png",
+      "type": "image/png",
+      "sizes": "152x152"
+    },
+    {
+      "src": "/images/house-512-237998.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
   "display": "standalone",
   "theme_color": "#000000",
   "background_color": "#ffffff"
