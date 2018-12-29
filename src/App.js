@@ -20,6 +20,8 @@ const textareaStyle = {
 	height : '250px',
 };
 
+const WITH_PERF = window.location.hash.includes('perf');
+
 const CSV_OPTS = {delimiter : "\t"};
 
 class App extends Component {
@@ -31,6 +33,9 @@ class App extends Component {
 			csvContents : null,
 			file : null,
 		};
+		if (WITH_PERF) {
+			console.log('Logging performance metrics as well!');
+		}
 	}
 
 	onClear = (e) => {
@@ -65,6 +70,8 @@ class App extends Component {
 	};
 
 	calculate = () => {
+		const start = WITH_PERF ? performance.now() : null;
+
 		const data = parse(this.state.csvContents)
 		// Remove the header
 			.splice(1)
@@ -105,6 +112,11 @@ class App extends Component {
 		const expenses = stringify(data.filter(e => e.amount < 0).map(toCsvFormat), CSV_OPTS);
 
 		const income = stringify(data.filter(e => e.amount >= 0).map(toCsvFormat), CSV_OPTS);
+
+		if (WITH_PERF) {
+			const duration = performance.now() - start;
+			console.log(`Calculation took ${duration}ms`);
+		}
 
 		return {income, expenses};
 	};
