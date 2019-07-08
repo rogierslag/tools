@@ -3,16 +3,17 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "clipboard-copy": "^2.0.1",
-    "csv": "^5.0.0",
-    "react": "^16.6.3",
-    "react-copy-to-clipboard": "^5.0.1",
-    "react-dom": "^16.6.3",
-    "react-dropzone": "^7.0.1",
-    "react-grid-system": "^4.3.1",
+    "clipboard-copy": "^3.0.0",
+    "csv": "^5.1.1",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "react-dropzone": "^10.1.5",
+    "react-grid-system": "^4.4.9",
     "react-notifications": "^1.4.3",
-    "react-scripts": "2.1.1",
-    "source-map-explorer": "^1.6.0"
+    "react-scripts": "^3.0.1"
+  },
+  "devDependencies": {
+    "source-map-explorer": "^2.0.1"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -25,10 +26,17 @@
   "eslintConfig": {
     "extends": "react-app"
   },
-  "browserslist": [
-    ">0.2%",
-    "not dead",
-    "not ie <= 11",
-    "not op_mini all"
-  ]
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not ie <= 11",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
 }

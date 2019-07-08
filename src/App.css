@@ -57,5 +57,13 @@ textarea {
 }
 
 .dropzone {
-	margin: 4px 8px;
+	padding: 8px 16px;
+	margin: 0px;
+	position: relative;
+	width: 200px;
+	height: 200px;
+	border-width: 2px;
+	border-color: rgb(102, 102, 102);
+	border-style: dashed;
+	border-radius: 5px;
 }

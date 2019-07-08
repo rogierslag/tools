@@ -183,9 +183,14 @@ class App extends Component {
 							<Row>
 								<Col xs={12}>
 									<Dropzone onDrop={this.fileUploaded}>
-										<p className="dropzone">
-											Drop your ING CSV export file here, or click to browse to it.
-										</p>
+										{({getRootProps, getInputProps, isDragActive}) => {
+											return (
+												<p className="dropzone" {...getRootProps()}>
+													Drop your ING CSV export file here, or click to browse to it.
+													<input {...getInputProps()} />
+												</p>
+											);
+										}}
 									</Dropzone>
 								</Col>
 							</Row>
