@@ -56,14 +56,22 @@ textarea {
 	font-size: 12px;
 }
 
-.dropzone {
-	padding: 8px 16px;
-	margin: 0px;
-	position: relative;
-	width: 200px;
-	height: 200px;
+.header {
+	flex-direction: row;
+	padding-top: 32px;
+	padding-bottom: 32px;
+}
+
+.headerItem {
+	align-items: center;
+	justify-content: center;
+}
+
+.headerItem img {
+	margin: 4px;
+	cursor: pointer;
+	border-color: white;
+	border-radius: 12px;
 	border-width: 2px;
-	border-color: rgb(102, 102, 102);
-	border-style: dashed;
-	border-radius: 5px;
+	width: 300px;
 }

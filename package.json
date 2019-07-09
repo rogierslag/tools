@@ -1,5 +1,5 @@
 {
-  "name": "ing2budget",
+  "name": "tools.rogierslag.nl",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -20,7 +20,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "buildPush": "yarn build && cd build && s3cmd -c ~/Desktop/Developer/nl.rogierslag/s3cmd-config/personal.cfg put -r . s3://ing.rogierslag.nl --exclude='.DS_Store' --add-header=\"Cache-Control:max-age=604800,immutable\" -P",
+    "buildPush": "yarn build && cd build && s3cmd -c ~/Desktop/Developer/nl.rogierslag/s3cmd-config/personal.cfg put -r . s3://tools.rogierslag.nl --exclude='.DS_Store' --add-header=\"Cache-Control:max-age=604800,immutable\" -P",
     "analyze": "source-map-explorer build/static/js/main.*"
   },
   "eslintConfig": {
