@@ -1,16 +1,13 @@
-import React, {Component, Fragment, createRef} from 'react';
+import React, {Component, createRef, Fragment} from 'react';
 
 import './things2slack.css';
 
 import {Col, Row} from "react-grid-system";
 import copy from '../copy/copy';
-import {problem} from "../notifications/notification";
 
 const textareaStyle = {
 	width : '90%',
-	marginLeft: '-12px',
-	marginRight: '-12px',
-	padding: '12px',
+	padding : '12px',
 	height : '450px',
 };
 
@@ -20,7 +17,7 @@ const regex = new RegExp(/-\s(\(?(\d{2})\/(\d{2})\/(\d{4}))\)?\s\[(.)\]\s(.*)/);
 
 function toStructure(input) {
 	const result = input.match(regex);
-	if(!result) {
+	if (!result) {
 		return null;
 	}
 	const done = result[5] === '+';
@@ -44,7 +41,7 @@ class Things2Slack extends Component {
 
 		this.state = {
 			input : null,
-			target: null,
+			target : null,
 		};
 		if (WITH_PERF) {
 			console.log('Logging performance metrics as well!');
@@ -66,7 +63,7 @@ class Things2Slack extends Component {
 		if (this.textArea.current && this.textArea.current.value && this.state.target) {
 			result =
 				<Row>
-					<Col xs={12} >
+					<Col xs={12}>
 						<textarea style={textareaStyle} value={this.calculate()} readOnly/>
 					</Col>
 				</Row>
@@ -74,9 +71,9 @@ class Things2Slack extends Component {
 
 		return (
 			<Fragment>
-				<Row>
+				<Row className="App-header">
 					<Col xs={12}>
-						<header className="App-header">
+						<header>
 							<h1>
 								Add your items from Things below
 							</h1>
@@ -85,9 +82,9 @@ class Things2Slack extends Component {
 								You can then directly paste the resulting values in Slack.
 							</p>
 
-							<Row style={{width: '90%'}} gutterWidth={0}>
+							<Row gutterWidth={0}>
 								<Col xs={12}>
-									<textarea style={textareaStyle} ref={this.textArea} />
+									<textarea style={textareaStyle} ref={this.textArea}/>
 								</Col>
 							</Row>
 
@@ -95,9 +92,9 @@ class Things2Slack extends Component {
 					</Col>
 				</Row>
 				<Row className="copyButtons">
-					<Col xs={6} offset={{xs: 3}}>
+					<Col xs={6} offset={{xs : 3}}>
 						<button onClick={() => {
-							this.setState({target: 'todo'}, () => copy(this.calculate(), 'todo list'));
+							this.setState({target : 'todo'}, () => copy(this.calculate(), 'todo list'));
 						}}>
 							Format and copy
 						</button>

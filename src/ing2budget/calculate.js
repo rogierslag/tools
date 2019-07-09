@@ -4,7 +4,7 @@ export default function calculate(csvData, withPerf) {
 	const start = withPerf ? performance.now() : null;
 
 	const data = csvData
-		// Remove the header
+	// Remove the header
 		.splice(1)
 		// Parse the data for easier format to work with
 		.map(data => {

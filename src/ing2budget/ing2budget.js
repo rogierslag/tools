@@ -99,7 +99,7 @@ class Ing2Budget extends Component {
 
 		return (
 			<Fragment>
-				<Row>
+				<Row className="App-header">
 					<Col xs={12}>
 						<header className="App-header">
 							<h1>
