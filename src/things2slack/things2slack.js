@@ -11,17 +11,14 @@ const textareaStyle = {
 	height : '450px',
 };
 
-const WITH_PERF = window.location.hash.includes('perf');
-
-const regex = new RegExp(/-\s(\(?(\d{2})\/(\d{2})\/(\d{4}))\)?\s\[(.)\]\s(.*)/);
+const THINGS_REGEX = new RegExp(/-\s(\(?(\d{2})\/(\d{2})\/(\d{4}))\)?\s\[(.)\]\s(.*)/);
 
 function toStructure(input) {
-	const result = input.match(regex);
+	const result = input.match(THINGS_REGEX);
 	if (!result) {
 		return null;
 	}
 	const done = result[5] === '+';
-	console.log(result);
 	return `- [${done ? 'x' : ' '}] ${result[6]}`;
 }
 
@@ -43,9 +40,6 @@ class Things2Slack extends Component {
 			input : null,
 			target : null,
 		};
-		if (WITH_PERF) {
-			console.log('Logging performance metrics as well!');
-		}
 		this.textArea = createRef()
 	}
 
