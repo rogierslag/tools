@@ -84,6 +84,9 @@ class Things2Slack extends Component {
 								Add your items from Things below
 							</h1>
 
+							<p className="small" style={{marginBottom : '12px'}}>
+								Any schedule dates and deadlines will be stripped, and the checkboxes will be changed towards the Github format.
+							</p>
 							<p className="small" style={{marginBottom : '24px'}}>
 								You can then directly paste the resulting values in Slack.
 							</p>
