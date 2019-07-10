@@ -70,7 +70,7 @@ class Things2Slack extends Component {
 			result =
 				<Row>
 					<Col xs={12}>
-						<textarea style={textareaStyle} value={this.calculate()} readOnly/>
+						<textarea style={textareaStyle} value={this.calculate()} />
 					</Col>
 				</Row>
 		}
