@@ -11,15 +11,27 @@ const textareaStyle = {
 	height : '450px',
 };
 
-const THINGS_REGEX = new RegExp(/-\s(\(?(\d{2})\/(\d{2})\/(\d{4}))\)?\s\[(.)\]\s(.*)/);
+// Matches stuff scheduled for some day
+// - 10/07/2019 [ ] Finish company card completion block
+const SCHEDULED_FOR_TODAY = new RegExp(/-\s(\(?(\d{2})\/(\d{2})\/(\d{4}))\)?\s\[(.)\]\s(.*)/);
+
+// Matches a final part which ends with a deadline
+// Prep 1on1s (10/07/2019)
+const WITH_DEADLINE = new RegExp(/(^(?!(\((\d{2})\/(\d{2})\/(\d{4})\))).*)\s(\((\d{2})\/(\d{2})\/(\d{4})\))/);
 
 function toStructure(input) {
-	const result = input.match(THINGS_REGEX);
+	const result = input.match(SCHEDULED_FOR_TODAY);
 	if (!result) {
-		return null;
+			return `- [ ] ${input}`;
 	}
+	let todo = result[6];
 	const done = result[5] === '+';
-	return `- [${done ? 'x' : ' '}] ${result[6]}`;
+
+	const result2 = todo.match(WITH_DEADLINE);
+	if(result2) {
+		todo = result2[1];
+	}
+	return `- [${done ? 'x' : ' '}] ${todo}`;
 }
 
 function rewrite(input) {
