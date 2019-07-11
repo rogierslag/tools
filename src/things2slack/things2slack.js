@@ -49,28 +49,38 @@ class Things2Slack extends Component {
 		super(options);
 
 		this.state = {
-			input : null,
-			target : null,
+			output : null,
 		};
 		this.textArea = createRef()
 	}
 
 	onClear = (e) => {
 		e.preventDefault();
-		this.setState({input : null});
+		this.setState({output : null});
+	};
+
+	updateCalculatedState = (event) => {
+		this.setState({output: event.target.value});
 	};
 
 	calculate = () => {
-		return rewrite(this.textArea.current.value, this.state.target);
+		const output = rewrite(this.textArea.current.value);
+		this.setState({output});
+		return output;
+	};
+
+	calculateAndCopy = () => {
+		const output = this.calculate();
+		copy(output, 'todo list');
 	};
 
 	render() {
 		let result = null;
-		if (this.textArea.current && this.textArea.current.value && this.state.target) {
+		if (this.state.output !== null) {
 			result =
 				<Row>
 					<Col xs={12}>
-						<textarea style={textareaStyle} value={this.calculate()} />
+						<textarea style={textareaStyle} value={this.state.output} onChange={this.updateCalculatedState} />
 					</Col>
 				</Row>
 		}
@@ -102,9 +112,7 @@ class Things2Slack extends Component {
 				</Row>
 				<Row className="copyButtons">
 					<Col xs={6} offset={{xs : 3}}>
-						<button onClick={() => {
-							this.setState({target : 'todo'}, () => copy(this.calculate(), 'todo list'));
-						}}>
+						<button onClick={this.calculateAndCopy}>
 							Format and copy
 						</button>
 					</Col>
