@@ -9,6 +9,7 @@ const textareaStyle = {
 	width : '90%',
 	padding : '12px',
 	height : '450px',
+	fontSize: '14px',
 };
 
 // Matches stuff scheduled for some day
@@ -22,13 +23,16 @@ const WITH_DEADLINE = new RegExp(/(^(?!(\((\d{2})\/(\d{2})\/(\d{4})\))).*)\s(\((
 function toStructure(input) {
 	const result = input.match(SCHEDULED_FOR_TODAY);
 	if (!result) {
-			return `- [ ] ${input}`;
+		if (input.includes('- [ ]') || input.includes('- [x]') || input.includes('- [X]')) {
+			return input;
+		}
+		return `- [ ] ${input}`;
 	}
 	let todo = result[6];
 	const done = result[5] === '+';
 
 	const result2 = todo.match(WITH_DEADLINE);
-	if(result2) {
+	if (result2) {
 		todo = result2[1];
 	}
 	return `- [${done ? 'x' : ' '}] ${todo}`;
@@ -36,12 +40,14 @@ function toStructure(input) {
 
 function rewrite(input) {
 	return input.split('\n')
-		.map(e => e.trim())
+		.map(e => e.trimRight())
 		.filter(e => e)
 		.map(toStructure)
 		.filter(e => e)
 		.join('\n');
 }
+
+const LOCALSTORAGE_KEY = 'lastThingsToSlackOutput';
 
 class Things2Slack extends Component {
 
@@ -54,18 +60,30 @@ class Things2Slack extends Component {
 		this.textArea = createRef()
 	}
 
+	componentDidMount = () => {
+		if (typeof window !== 'undefined') {
+			const lastOutput = window.localStorage.getItem(LOCALSTORAGE_KEY);
+			if (lastOutput) {
+				this.textArea.current.value = lastOutput;
+			}
+		}
+	};
+
 	onClear = (e) => {
 		e.preventDefault();
 		this.setState({output : null});
 	};
 
 	updateCalculatedState = (event) => {
-		this.setState({output: event.target.value});
+		this.setState({output : event.target.value});
 	};
 
 	calculate = () => {
 		const output = rewrite(this.textArea.current.value);
 		this.setState({output});
+		if (typeof window !== 'undefined') {
+			window.localStorage.setItem(LOCALSTORAGE_KEY, output);
+		}
 		return output;
 	};
 
@@ -80,7 +98,8 @@ class Things2Slack extends Component {
 			result =
 				<Row>
 					<Col xs={12}>
-						<textarea style={textareaStyle} value={this.state.output} onChange={this.updateCalculatedState} />
+						<textarea style={textareaStyle} value={this.state.output}
+						          onChange={this.updateCalculatedState}/>
 					</Col>
 				</Row>
 		}
@@ -95,7 +114,8 @@ class Things2Slack extends Component {
 							</h1>
 
 							<p className="small" style={{marginBottom : '12px'}}>
-								Any schedule dates and deadlines will be stripped, and the checkboxes will be changed towards the Github format.
+								Any schedule dates and deadlines will be stripped, and the checkboxes will be changed
+								towards the Github format.
 							</p>
 							<p className="small" style={{marginBottom : '24px'}}>
 								You can then directly paste the resulting values in Slack.
