@@ -45,11 +45,11 @@ function toStructure(input) {
 }
 
 function rewrite(input) {
-	return input.split('\n')
+	return Array.from(new Set(input.split('\n')
 		.map(e => e.trimRight())
 		.filter(e => e)
 		.map(toStructure)
-		.filter(e => e)
+		.filter(e => e)))
 		.join('\n');
 }
 
