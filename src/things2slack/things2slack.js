@@ -23,7 +23,11 @@ const WITH_DEADLINE = new RegExp(/(^(?!(\((\d{2})\/(\d{2})\/(\d{4})\))).*)\s(\((
 function toStructure(input) {
 	const result = input.match(SCHEDULED_FOR_TODAY);
 	if (!result) {
-		if (input.trimLeft().startsWith('- [ ]') || input.trimLeft().startsWith('- [x]') || input.trimLeft().startsWith('- [X]')) {
+		if (input.trimLeft().startsWith('- [ ]')
+			|| input.trimLeft().startsWith('- [x]')
+			|| input.trimLeft().startsWith('- [~]')
+			|| input.trimLeft().startsWith('- [-]')
+			|| input.trimLeft().startsWith('- [X]')) {
 			const start = input.substr(0, input.indexOf(']') + 1);
 			const end = input.substr(input.indexOf(']') + 1);
 			return `${start.toLowerCase()}${end}`;
