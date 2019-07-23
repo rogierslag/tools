@@ -35,7 +35,7 @@ function toStructure(input) {
 		return `- [ ] ${input}`;
 	}
 	let todo = result[6];
-	const done = ['+', 'x'].includes(result[5] || '');
+	const done = ['+', 'x', '~'].includes(result[5] || '');
 
 	const result2 = todo.match(WITH_DEADLINE);
 	if (result2) {
