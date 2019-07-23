@@ -8037,10 +8037,10 @@ react-error-overlay@^5.1.6:
   resolved "https://registry.yarnpkg.com/react-error-overlay/-/react-error-overlay-5.1.6.tgz#0cd73407c5d141f9638ae1e0c63e7b2bf7e9929d"
   integrity sha512-X1Y+0jR47ImDVr54Ab6V9eGk0Hnu7fVWGeHQSOXHf/C2pF9c6uy3gef8QUeuUiWlNb0i08InPSE5a/KJzNzw1Q==
 
-react-grid-system@^4.4.9:
-  version "4.4.9"
-  resolved "https://registry.yarnpkg.com/react-grid-system/-/react-grid-system-4.4.9.tgz#568f1a999648c2cb5041bc35eed5b8459c752a8a"
-  integrity sha512-PLxcEboavYY890ar8Om5EQMtfFHOFbmd3got2CV8cJbeHQ4I4SbZjzHFyAEx6OgHEDJ7r1vr9lKuEn9OjXPgIw==
+react-grid-system@^4.4.10:
+  version "4.4.10"
+  resolved "https://registry.yarnpkg.com/react-grid-system/-/react-grid-system-4.4.10.tgz#d5e3a248a1f663189eefb6fe363854d4d9cd7d09"
+  integrity sha512-ZSmQ+284QOYqDKkb5kbaFUWsuczLMQmlkAYNVv2UorG1z177UxQPYcCwmzKXpuGascksImuLpitpMpnn0UacXg==
   dependencies:
     prop-types "^15.7.2"
 
