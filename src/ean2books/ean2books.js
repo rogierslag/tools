@@ -4,6 +4,7 @@ import './ean2books.css';
 
 import {Col, Row} from "react-grid-system";
 import {bookError} from "../notifications/notification";
+import {CSVDownload} from "react-csv";
 
 const textInputStyle = {
 	width : '90%',
@@ -17,7 +18,7 @@ const closeIcon = {
 	marginRight: '8px',
 };
 
-const tableStyle = {textAalign : 'left'};
+const tableStyle = {textAlign : 'left'};
 
 const isProd = process.env['NODE_ENV'] === 'production';
 
@@ -107,6 +108,19 @@ class Ean2Books extends Component {
 		updateLocalState(copy);
 	};
 
+	download = () => {
+		this.setState({asDownload: true});
+		setTimeout(() => this.setState({asDownload: false}), 250);
+	};
+
+	asDownload = () => {
+		if(!this.state.asDownload) {
+			return;
+		}
+		const data = [['EAN','Author','Title'], ...this.state.allBooks.map(({ean, author, title}) => ([ean, author, title]))];
+		return <CSVDownload data={data} target="_blank" />;
+	};
+
 	render() {
 		let lastResult = null;
 		if (this.state.lastBook) {
@@ -160,6 +174,8 @@ class Ean2Books extends Component {
 
 							<p className="small" style={{marginBottom : '24px'}}>
 								There are currently <i>{this.state.currentlyLoading} request(s) in-flight</i>.
+								<br />
+								<button onClick={this.download}>Download overview</button>
 							</p>
 
 						</header>
@@ -167,6 +183,7 @@ class Ean2Books extends Component {
 				</Row>
 				{lastResult}
 				{allResults}
+				{this.asDownload()}
 			</Fragment>
 		);
 	}
