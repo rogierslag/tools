@@ -23,7 +23,8 @@ const tableStyle = {textAlign : 'left'};
 const isProd = process.env['NODE_ENV'] === 'production';
 
 async function fetchBook(ean) {
-	if (!ean) {
+	const trimmedEan = (ean || '').trim();
+	if (!trimmedEan) {
 		return null;
 	}
 	if (!isProd) {
@@ -31,12 +32,12 @@ async function fetchBook(ean) {
 			setTimeout(() => resolve({
 				"title" : "Test",
 				"author" : "Test",
-				ean,
+				trimmedEan,
 			}), 3500);
 		}));
 	}
 
-	const result = await fetch(`https://ean.rogierslag.nl/ean?ean=${ean}`, {mode : 'cors'});
+	const result = await fetch(`https://ean.rogierslag.nl/ean?ean=${trimmedEan}`, {mode : 'cors'});
 	if (!result.ok) {
 		return null;
 	}
