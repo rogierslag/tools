@@ -132,11 +132,11 @@ class Ean2Books extends Component {
 					<Col xs={12}>
 						<header>
 							<h1>
-								Scan your ISBN
+								Scan your EAN
 							</h1>
 
 							<p className="small" style={{marginBottom : '24px'}}>
-								Scan any ISBN code, and a lookup will be performed and it will be added to your list
+								Scan any books EAN code, and a lookup will be performed and it will be added to your list
 							</p>
 
 							<Row gutterWidth={0}>
