@@ -9,7 +9,12 @@ const textInputStyle = {
 	width : '90%',
 	padding : '12px',
 	fontSize : '14px',
-	marginBottom : '24px',
+	marginBottom : '8px',
+};
+const closeIcon = {
+	cursor : 'pointer',
+	marginLeft: '8px',
+	marginRight: '8px',
 };
 
 const tableStyle = {textAalign : 'left'};
@@ -21,11 +26,13 @@ async function fetchBook(ean) {
 		return null;
 	}
 	if (!isProd) {
-		return {
-			"title" : "Test",
-			"author" : "Test",
-			ean,
-		};
+		return new Promise((resolve => {
+			setTimeout(() => resolve({
+				"title" : "Test",
+				"author" : "Test",
+				ean,
+			}), 3500);
+		}));
 	}
 
 	const result = await fetch(`https://ean.rogierslag.nl/ean?ean=${ean}`, {mode : 'cors'});
@@ -35,11 +42,14 @@ async function fetchBook(ean) {
 	return await result.json();
 }
 
-const LOCALSTORAGE_LASTBOOK_KEY = 'isbnCode';
 const LOCALSTORAGE_ALLBOOKS_KEY = 'allBooks';
 
 function getLocalState() {
 	return JSON.parse(window.localStorage.getItem(LOCALSTORAGE_ALLBOOKS_KEY)) || [];
+}
+
+function updateLocalState(allBooks) {
+	window.localStorage.setItem(LOCALSTORAGE_ALLBOOKS_KEY, JSON.stringify(allBooks));
 }
 
 class Ean2Books extends Component {
@@ -50,18 +60,12 @@ class Ean2Books extends Component {
 		this.state = {
 			lastBook : null,
 			allBooks : getLocalState(),
-			isLoading : false,
+			currentlyLoading : 0,
 		};
 		this.ean = createRef()
 	}
 
 	componentDidMount = () => {
-		if (typeof window !== 'undefined') {
-			const lastOutput = window.localStorage.getItem(LOCALSTORAGE_LASTBOOK_KEY) || [];
-			if (lastOutput) {
-				this.ean.current.value = lastOutput;
-			}
-		}
 		this.ean.current.focus();
 	};
 
@@ -73,9 +77,8 @@ class Ean2Books extends Component {
 		if (e.keyCode !== 13) {
 			return;
 		}
-		this.setState({isLoading : true});
+		this.setState((prevState) => ({currentlyLoading : prevState.currentlyLoading + 1}));
 		const ean = this.ean.current.value;
-		window.localStorage.setItem(LOCALSTORAGE_LASTBOOK_KEY, ean);
 		this.ean.current.value = '';
 		this.ean.current.focus();
 
@@ -83,15 +86,25 @@ class Ean2Books extends Component {
 		if (!book) {
 			bookError(ean);
 			console.warn('Book could not be found', ean);
-			this.setState({isLoading : false});
+			this.setState((prevState) => ({currentlyLoading : prevState.currentlyLoading - 1}));
 			return;
 		}
 
 		const storage = getLocalState();
 		storage.unshift(book);
-		this.setState({lastBook : book, allBooks : storage});
-		window.localStorage.setItem(LOCALSTORAGE_ALLBOOKS_KEY, JSON.stringify(storage));
-		this.setState({isLoading : false});
+		this.setState((prevState) => ({
+			lastBook : book,
+			allBooks : storage,
+			currentlyLoading : prevState.currentlyLoading - 1
+		}));
+		updateLocalState(storage);
+	};
+
+	remove = (i) => {
+		const copy = [...this.state.allBooks];
+		copy.splice(i, 1);
+		this.setState({allBooks : copy});
+		updateLocalState(copy);
 	};
 
 	render() {
@@ -120,6 +133,7 @@ class Ean2Books extends Component {
 						<td style={tableStyle}>{book.ean}</td>
 						<td style={tableStyle}>{book.author}</td>
 						<td style={tableStyle}>{book.title}</td>
+						<td style={tableStyle}><span style={closeIcon} onClick={() => this.remove(i)}>×</span></td>
 					</tr>)}
 					</tbody>
 				</table>
@@ -136,16 +150,17 @@ class Ean2Books extends Component {
 							</h1>
 
 							<p className="small" style={{marginBottom : '24px'}}>
-								Scan any books EAN code, and a lookup will be performed and it will be added to your list
+								Scan any books EAN code, and a lookup will be performed and it will be added to your
+								list
 							</p>
 
-							<Row gutterWidth={0}>
-								<Col xs={12}>
-									<input type="text" style={textInputStyle}
-									       ref={this.ean} autoFocus={true}
-									       onKeyDown={this.onSubmit}/>
-								</Col>
-							</Row>
+							<input type="text" style={textInputStyle}
+							       ref={this.ean} autoFocus={true}
+							       onKeyDown={this.onSubmit}/>
+
+							<p className="small" style={{marginBottom : '24px'}}>
+								There are currently <i>{this.state.currentlyLoading} request(s) in-flight</i>.
+							</p>
 
 						</header>
 					</Col>
