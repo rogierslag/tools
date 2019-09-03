@@ -7,6 +7,7 @@ import {Col, Container, Row} from "react-grid-system";
 import {NotificationContainer,} from 'react-notifications';
 import Ing2Budget from "./ing2budget/ing2budget";
 import Things2Slack from './things2slack/things2slack'
+import Ean2Books from "./ean2books/ean2books";
 
 class Header extends Component {
 	render() {
@@ -21,6 +22,10 @@ class Header extends Component {
 			<Col xs={12} sm={6} className="headerItem">
 				<img alt="" src="/images/things.jpg" onClick={() => this.props.onSelect('things2slack')}/>
 				<p>Convert a list from Things to a Slack list</p>
+			</Col>
+			<Col xs={12} sm={6} className="headerItem">
+				<img alt="" src="/images/books.png" onClick={() => this.props.onSelect('ean2books')}/>
+				<p>Scan a bunch of books</p>
 			</Col>
 		</Row>
 	}
@@ -51,6 +56,8 @@ class App extends Component {
 				return <Things2Slack/>;
 			case 'ing2budget':
 				return <Ing2Budget/>;
+			case 'ean2books':
+				return <Ean2Books/>;
 			default:
 				return <Header onSelect={this.onSelect}/>;
 		}
