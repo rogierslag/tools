@@ -28,7 +28,7 @@ async function fetchBook(ean) {
 		};
 	}
 
-	const result = await fetch(`https://sjh5zthcvg.execute-api.eu-west-1.amazonaws.com/default?ean=${ean}`, {mode : 'cors'});
+	const result = await fetch(`https://ean.rogierslag.nl/ean?ean=${ean}`, {mode : 'cors'});
 	if (!result.ok) {
 		return null;
 	}
