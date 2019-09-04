@@ -41,13 +41,24 @@ class App extends Component {
 		};
 	}
 
+	componentDidMount() {
+		if (window && window.location.pathname) {
+			const tool = window.location.pathname.substr(1);
+			this.setState({tool});
+		}
+	}
+
 	onClear = (e) => {
 		e.preventDefault();
 		this.setState({tool : null});
+		window.history.pushState({}, e, `/`);
 	};
 
 	onSelect = (e) => {
 		this.setState({tool : e});
+		if (window && window.history) {
+			window.history.pushState({}, e, `/${e}`);
+		}
 	};
 
 	toolToRender = () => {
@@ -64,16 +75,13 @@ class App extends Component {
 	};
 
 	reloadIcon = () => {
-		switch (this.state.tool) {
-			case 'things2slack':
-			case 'ing2budget':
-				return <img className="restartIcon"
-				            src="/images/restart.png"
-				            alt="restart"
-				            onClick={this.onClear}/>;
-			default:
-				return null;
+		if (!this.state.tool) {
+			return null;
 		}
+		return <img className="restartIcon"
+		            src="/images/restart.png"
+		            alt="restart"
+		            onClick={this.onClear}/>;
 	};
 
 	render() {

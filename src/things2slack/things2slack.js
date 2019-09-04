@@ -9,7 +9,7 @@ const textareaStyle = {
 	width : '90%',
 	padding : '12px',
 	height : '450px',
-	fontSize: '14px',
+	fontSize : '14px',
 };
 
 // Matches stuff scheduled for some day

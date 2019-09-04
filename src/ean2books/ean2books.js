@@ -14,8 +14,8 @@ const textInputStyle = {
 };
 const closeIcon = {
 	cursor : 'pointer',
-	marginLeft: '8px',
-	marginRight: '8px',
+	marginLeft : '8px',
+	marginRight : '8px',
 };
 
 const tableStyle = {textAlign : 'left'};
@@ -110,16 +110,16 @@ class Ean2Books extends Component {
 	};
 
 	download = () => {
-		this.setState({asDownload: true});
-		setTimeout(() => this.setState({asDownload: false}), 250);
+		this.setState({asDownload : true});
+		setTimeout(() => this.setState({asDownload : false}), 250);
 	};
 
 	asDownload = () => {
-		if(!this.state.asDownload) {
+		if (!this.state.asDownload) {
 			return;
 		}
-		const data = [['EAN','Author','Title'], ...this.state.allBooks.map(({ean, author, title}) => ([ean, author, title]))];
-		return <CSVDownload data={data} target="_blank" />;
+		const data = [['EAN', 'Author', 'Title'], ...this.state.allBooks.map(({ean, author, title}) => ([ean, author, title]))];
+		return <CSVDownload data={data} target="_blank"/>;
 	};
 
 	render() {
@@ -175,7 +175,7 @@ class Ean2Books extends Component {
 
 							<p className="small" style={{marginBottom : '24px'}}>
 								There are currently <i>{this.state.currentlyLoading} request(s) in-flight</i>.
-								<br />
+								<br/>
 								<button onClick={this.download}>Download overview</button>
 							</p>
 
