@@ -98,6 +98,13 @@ class Things2Slack extends Component {
 		copy(output, 'todo list');
 	};
 
+	onKeyDown = (e) => {
+		// Ctrl-Enter or equivalent
+		if ((e.ctrlKey || e.metaKey) && (e.keyCode === 13 || e.keyCode === 10)) {
+			this.calculateAndCopy();
+		}
+	};
+
 	render() {
 		let result = null;
 		if (this.state.output !== null) {
@@ -129,7 +136,7 @@ class Things2Slack extends Component {
 
 							<Row gutterWidth={0}>
 								<Col xs={12}>
-									<textarea style={textareaStyle} ref={this.textArea}/>
+									<textarea style={textareaStyle} ref={this.textArea} onKeyDown={this.onKeyDown}/>
 								</Col>
 							</Row>
 
