@@ -3,18 +3,18 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "clipboard-copy": "^3.0.0",
-    "csv": "^5.1.1",
-    "react": "^16.8.6",
-    "react-csv": "^1.1.1",
-    "react-dom": "^16.8.6",
-    "react-dropzone": "^10.1.5",
-    "react-grid-system": "^4.4.10",
-    "react-notifications": "^1.4.3",
-    "react-scripts": "^3.0.1"
+    "clipboard-copy": "^3.1.0",
+    "csv": "^5.3.2",
+    "react": "^16.13.1",
+    "react-csv": "^2.0.3",
+    "react-dom": "^16.13.1",
+    "react-dropzone": "^10.2.2",
+    "react-grid-system": "^6.3.0",
+    "react-notifications": "^1.6.0",
+    "react-scripts": "^3.4.1"
   },
   "devDependencies": {
-    "source-map-explorer": "^2.0.1"
+    "source-map-explorer": "^2.4.2"
   },
   "scripts": {
     "start": "react-scripts start",
