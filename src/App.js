@@ -8,6 +8,7 @@ import {NotificationContainer,} from 'react-notifications';
 import Ing2Budget from "./ing2budget/ing2budget";
 import Things2Slack from './things2slack/things2slack'
 import Ean2Books from "./ean2books/ean2books";
+import Sets from "./sets/sets";
 
 class Header extends Component {
 	render() {
@@ -26,6 +27,10 @@ class Header extends Component {
 			<Col xs={12} sm={6} className="headerItem">
 				<img alt="" src="/images/books.png" onClick={() => this.props.onSelect('ean2books')}/>
 				<p>Scan a bunch of books</p>
+			</Col>
+			<Col xs={12} sm={6} className="headerItem">
+				<img alt="" src="/images/set.png" onClick={() => this.props.onSelect('sets')}/>
+				<p>Set actions</p>
 			</Col>
 		</Row>
 	}
@@ -69,6 +74,8 @@ class App extends Component {
 				return <Ing2Budget/>;
 			case 'ean2books':
 				return <Ean2Books/>;
+			case 'sets':
+				return <Sets/>;
 			default:
 				return <Header onSelect={this.onSelect}/>;
 		}
