@@ -8,7 +8,9 @@ function asCsv({formattedDate, amount, name}) {
 }
 
 export function fromCsvFormat(data) {
-	return parse(data);
+	return parse(data, {
+		delimiter: ';',
+	});
 }
 
 export function toCsvFormat(data) {
