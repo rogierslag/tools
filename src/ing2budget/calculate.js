@@ -1,10 +1,11 @@
 import months from "./months";
+import {getParsedMappers} from "./mapper";
 
 export default function calculate(csvData, withPerf) {
 	const start = withPerf ? performance.now() : null;
 
 	const data = csvData
-	// Remove the header
+		// Remove the header
 		.splice(1)
 		// Parse the data for easier format to work with
 		.map(data => {
@@ -38,7 +39,25 @@ export default function calculate(csvData, withPerf) {
 				name,
 				amount,
 			}
-		});
+		})
+		.map(({formattedDate, name, amount}) => {
+				try {
+					const allMappers = getParsedMappers();
+					if (allMappers) {
+						const mapper = Object.entries(allMappers).find(([key]) => name.toLowerCase().includes(key.toLowerCase()));
+						if (mapper) {
+							const string = `(${mapper[1]})(\`${name}\`);`;
+							const category = eval(string);
+							return {formattedDate, name, amount, category};
+						}
+					}
+				} catch (e) {
+					// ow no terrible
+					console.warn('Something threw while trying to determine categories', e);
+				}
+				return {formattedDate, name, amount};
+			}
+		);
 
 	if (withPerf) {
 		const duration = performance.now() - start;

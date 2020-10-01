@@ -2,14 +2,14 @@ import {parse, stringify} from "csv/lib/sync";
 
 const CSV_OPTS = {delimiter : "\t"};
 
-function asCsv({formattedDate, amount, name}) {
+function asCsv({formattedDate, amount, name, category}) {
 	const absAmount = Math.abs(amount);
-	return [formattedDate, absAmount, name];
+	return [formattedDate, absAmount, name, category];
 }
 
 export function fromCsvFormat(data) {
 	return parse(data, {
-		delimiter: ';',
+		delimiter : ';',
 	});
 }
 

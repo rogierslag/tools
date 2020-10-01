@@ -1,4 +1,4 @@
-import React, {Component, Fragment} from 'react';
+import React, {Component, createRef, Fragment} from 'react';
 
 import './ing2budget.css';
 
@@ -8,6 +8,7 @@ import Dropzone from 'react-dropzone';
 import {fileError} from "../notifications/notification";
 import {fromCsvFormat, toCsvFormat} from "./csv";
 import calculate from "./calculate";
+import {getFormattedMappers, saveMappers} from "./mapper";
 
 const textareaStyle = {
 	width : '80%',
@@ -23,6 +24,7 @@ class Ing2Budget extends Component {
 
 		this.state = {
 			data : '',
+			mappers : getFormattedMappers(),
 		};
 		if (WITH_PERF) {
 			console.log('Logging performance metrics as well!');
@@ -66,8 +68,54 @@ class Ing2Budget extends Component {
 		return toCsvFormat(data);
 	};
 
+	saveMapper = () => {
+		if (this.saveTimeout) {
+			clearTimeout(this.saveTimeout);
+		}
+		const lastMapperSaveSuccess = saveMappers(this.mapperRef.current.value);
+		if (lastMapperSaveSuccess) {
+			this.setState({mappers : getFormattedMappers()});
+			this.setState({lastMapperSaveSuccess : true});
+			this.saveTimeout = setTimeout(() => this.setState({lastMapperSaveSuccess : undefined}), 2000);
+		} else {
+			this.setState({lastMapperSaveSuccess : false});
+		}
+	}
+
+	mapperRef = createRef();
+
+	mapperBorderColor = () => {
+		if (this.state.lastMapperSaveSuccess === true) {
+			return 'green';
+		}
+		if (this.state.lastMapperSaveSuccess === false) {
+			return 'red';
+		}
+		return 'inherit';
+	}
+
 	render() {
 		let result = null;
+		const mapper = (
+			<Row>
+				<Col xs={12}>
+					<p>Automated mapping</p>
+					<textarea style={{
+						...textareaStyle,
+						borderColor : this.mapperBorderColor(),
+						borderWidth : 2,
+						borderRadius : 6,
+						transition : '0.2s',
+					}}
+					          defaultValue={this.state.mappers}
+					          ref={this.mapperRef}/>
+				</Col>
+
+				<button onClick={this.saveMapper}>
+					Validate and save
+				</button>
+			</Row>
+		);
 		if (this.state.csvContents) {
 			const {income, expenses} = this.calculate();
 			result = <Fragment>
@@ -141,6 +189,7 @@ class Ing2Budget extends Component {
 					</Col>
 				</Row>
 				{result}
+				{mapper}
 			</Fragment>
 		);
 	}
