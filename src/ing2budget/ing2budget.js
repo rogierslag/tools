@@ -96,26 +96,26 @@ class Ing2Budget extends Component {
 
 	render() {
 		let result = null;
-		const mapper = (
-			<Row>
-				<Col xs={12}>
-					<p>Automated mapping</p>
-					<textarea style={{
-						...textareaStyle,
-						borderColor : this.mapperBorderColor(),
-						borderWidth : 2,
-						borderRadius : 6,
-						transition : '0.2s',
-					}}
-					          defaultValue={this.state.mappers}
-					          ref={this.mapperRef}/>
-				</Col>
+		const mapper = <Row>
+			<Col xs={12} sm={6} offset={{sm : 3}}>
+				<p>Automated mapping</p>
+				<textarea style={{
+					...textareaStyle,
+					borderColor : this.mapperBorderColor(),
+					borderWidth : 2,
+					borderRadius : 6,
+					transition : '0.2s',
+					outline : 'none', // It hovers over my borderColor indicators
+				}}
+				          defaultValue={this.state.mappers}
+				          ref={this.mapperRef}/>
 
 				<button onClick={this.saveMapper}>
 					Validate and save
 				</button>
-			</Row>
-		);
+			</Col>
+		</Row>;
+
 		if (this.state.csvContents) {
 			const {income, expenses} = this.calculate();
 			result = <Fragment>

@@ -8,13 +8,28 @@ function getMappers() {
 	}
 }
 
-export function getParsedMappers() {
+function getParsedMappers() {
 	try {
 		return JSON.parse(getMappers() || 'null');
 	} catch (e) {
 		console.warn('Couldnt parse mappers', e);
 		return {};
 	}
+}
+
+export function applyMapper(name) {
+	try {
+		const allMappers = getParsedMappers();
+		if (allMappers) {
+			const [key, category] = Object.entries(allMappers)
+				.find(([key]) => name.toLowerCase().includes(key.toLowerCase()));
+			return category;
+		}
+	} catch (e) {
+		// ow no terrible
+		console.warn('Something threw while trying to determine categories', e);
+	}
+	return undefined;
 }
 
 export function getFormattedMappers() {
@@ -27,9 +42,15 @@ export function saveMappers(input) {
 		window.localStorage.removeItem(MAPPER_KEY);
 		return;
 	}
-	// If not parseable, do not save this!
+	// If not parsable, do not save this!
 	try {
-		JSON.parse(input);
+		const parsed = JSON.parse(input);
+		const keyMismatch = Object.keys(parsed).find(key => typeof key !== 'string');
+		const valueMismatch = Object.values(parsed).find(key => typeof key !== 'string');
+		if (keyMismatch || valueMismatch) {
+			// only stringies are accepted
+			return false;
+		}
 		window.localStorage.setItem(MAPPER_KEY, input);
 		return true;
 	} catch (e) {
