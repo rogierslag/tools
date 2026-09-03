@@ -2,7 +2,7 @@ import React, {Component, createRef, Fragment} from 'react';
 
 import './ean2books.css';
 
-import {Col, Row} from "react-grid-system";
+import {Col, Row} from '../grid/grid';
 import {bookError} from "../notifications/notification";
 import {CSVDownload} from "react-csv";
 
@@ -20,7 +20,7 @@ const closeIcon = {
 
 const tableStyle = {textAlign : 'left'};
 
-const isProd = process.env['NODE_ENV'] === 'production';
+const isProd = import.meta.env.PROD;
 
 async function fetchBook(ean) {
 	const trimmedEan = (ean || '').trim();

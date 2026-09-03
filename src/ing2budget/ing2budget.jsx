@@ -2,7 +2,7 @@ import React, {Component, createRef, Fragment} from 'react';
 
 import './ing2budget.css';
 
-import {Col, Row} from "react-grid-system";
+import {Col, Row} from '../grid/grid';
 import copy from '../copy/copy';
 import Dropzone from 'react-dropzone';
 import {fileError} from "../notifications/notification";

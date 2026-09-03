@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
 
 import './App.css';
-import 'react-notifications/lib/notifications.css';
+import 'react-toastify/dist/ReactToastify.css';
 
-import {Col, Container, Row} from "react-grid-system";
-import {NotificationContainer,} from 'react-notifications';
+import {Col, Container, Row} from './grid/grid';
+import {ToastContainer} from 'react-toastify';
 import Ing2Budget from "./ing2budget/ing2budget";
 import Things2Slack from './things2slack/things2slack'
 import Ean2Books from "./ean2books/ean2books";
@@ -94,7 +94,7 @@ class App extends Component {
 	render() {
 		return (
 			<Container fluid className="App">
-				<NotificationContainer/>
+				<ToastContainer/>
 				{this.reloadIcon()}
 				{this.toolToRender()}
 			</Container>

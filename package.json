@@ -2,30 +2,28 @@
   "name": "tools",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=24"
+  },
   "dependencies": {
-    "clipboard-copy": "^3.1.0",
-    "csv": "^5.3.2",
-    "react": "^16.13.1",
-    "react-csv": "^2.0.3",
-    "react-dom": "^16.13.1",
-    "react-dropzone": "^10.2.2",
-    "react-grid-system": "^6.3.0",
-    "react-notifications": "^1.6.0",
-    "react-scripts": "^3.4.1"
+    "clipboard-copy": "^4.0.1",
+    "csv": "^6.6.3",
+    "prop-types": "^15.8.1",
+    "react": "^19.2.8",
+    "react-csv": "^2.2.2",
+    "react-dom": "^19.2.8",
+    "react-dropzone": "^20.1.1",
+    "react-toastify": "^11.1.0"
   },
   "devDependencies": {
-    "source-map-explorer": "^2.4.2"
+    "@vitejs/plugin-react": "^6.1.1",
+    "vite": "^8.2.2"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "buildPush": "yarn build && cd build && s3cmd -c ~/Desktop/Developer/nl.rogierslag/s3cmd-config/personal.cfg put -r . s3://tools.rogierslag.nl --exclude='.DS_Store' --add-header=\"Cache-Control:max-age=604800,immutable\" -P",
-    "analyze": "source-map-explorer build/static/js/main.*"
-  },
-  "eslintConfig": {
-    "extends": "react-app"
+    "start": "vite",
+    "build": "vite build",
+    "buildPush": "yarn build && cd build && s3cmd -c ~/Desktop/Developer/nl.rogierslag/s3cmd-config/personal.cfg put -r . s3://tools.rogierslag.nl --exclude='.DS_Store' --add-header=\"Cache-Control:max-age=604800,immutable\" -P"
   },
   "browserslist": {
     "production": [
