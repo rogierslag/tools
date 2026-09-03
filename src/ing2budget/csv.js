@@ -1,4 +1,4 @@
-import {parse, stringify} from "csv/lib/sync";
+import {parse, stringify} from "csv/browser/esm/sync";
 
 const CSV_OPTS = {delimiter : "\t"};
 

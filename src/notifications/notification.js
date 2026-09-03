@@ -1,17 +1,17 @@
-import {NotificationManager} from 'react-notifications';
+import {toast} from 'react-toastify';
 
 export function copied(type) {
-	NotificationManager.info(`Copied ${type} to clipboard`, 'Copied', 3000)
+	toast.info(`Copied ${type} to clipboard`, {autoClose: 3000});
 }
 
 export function bookError(ean) {
-	NotificationManager.error(`Book with EAN '${ean}' could not be found`, 'Unknown book');
+	toast.error(`Unknown book: EAN '${ean}' could not be found`);
 }
 
 export function fileError(description) {
-	NotificationManager.error(description, 'Invalid file');
+	toast.error(`Invalid file: ${description}`);
 }
 
 export function problem(description) {
-	NotificationManager.warn(description, 'Error', 3000)
+	toast.warn(description, {autoClose: 3000});
 }

@@ -2,7 +2,7 @@ import React, {Component, createRef, Fragment} from 'react';
 
 import './sets.css';
 
-import {Col, Row} from "react-grid-system";
+import {Col, Row} from '../grid/grid';
 import copy from '../copy/copy';
 
 const textareaStyle = {
